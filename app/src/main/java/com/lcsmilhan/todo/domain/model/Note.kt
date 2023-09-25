@@ -15,11 +15,11 @@ data class Note(
 
     companion object {
         val noteColors = listOf(
-            Color.Red.copy(0.4f),
-            Color.Green.copy(0.4f),
-            Color.Yellow.copy(0.4f),
-            Color.Magenta.copy(0.4f),
-            Color.Blue.copy(0.4f)
+            Color.Red.copy(0.5f),
+            Color.Green.copy(0.5f),
+            Color.Yellow.copy(0.5f),
+            Color.Magenta.copy(0.5f),
+            Color.Blue.copy(0.5f)
         )
     }
 

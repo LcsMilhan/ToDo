@@ -5,6 +5,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -40,6 +41,7 @@ import com.lcsmilhan.todo.presentation.notes.NotesViewModel
 import com.lcsmilhan.todo.presentation.notes.components.NoteItem
 import com.lcsmilhan.todo.presentation.notes.components.OrderSection
 import com.lcsmilhan.todo.presentation.notes.components.TotalNotesMessage
+import com.lcsmilhan.todo.presentation.util.Screen
 import kotlinx.coroutines.launch
 
 @Composable
@@ -55,10 +57,16 @@ fun NotesScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {  },
-                backgroundColor = MaterialTheme.colorScheme.primary
+                onClick = {
+                    navController.navigate(Screen.AddEditNoteScreen.route)
+                },
+                backgroundColor = MaterialTheme.colorScheme.primary,
             ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add note",
+                    tint = MaterialTheme.colorScheme.onPrimary
+                )
             }
         },
         scaffoldState = scaffoldState
@@ -66,15 +74,18 @@ fun NotesScreen(
         Column(
             Modifier
                 .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
+                .padding(16.dp)
         ) {
             Row(
-                Modifier.fillMaxWidth(),
+                Modifier
+                    .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Your Notes",
+                    text = "ToDo Notes",
                     style = MaterialTheme.typography.titleLarge
                 )
                 IconButton(
@@ -111,7 +122,10 @@ fun NotesScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-
+                                navController.navigate(
+                                    route = Screen.AddEditNoteScreen.route +
+                                            "?noteId=${note.id}&noteColor=${note.color}"
+                                )
                             },
                         note = note,
                         onDeleteClick = {
@@ -132,5 +146,4 @@ fun NotesScreen(
             }
         }
     }
-
 }

@@ -38,6 +38,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
 import com.lcsmilhan.todo.domain.model.Note
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Composable
 fun NoteItem(
@@ -54,9 +57,9 @@ fun NoteItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "${note.timestamp}",
+            text = getFormattedTime(note.timestamp),
             style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onBackground,
+            color = MaterialTheme.colorScheme.tertiary,
             textAlign = TextAlign.Center
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -109,7 +112,7 @@ fun NoteItem(
                     ) {
                         Text(
                             text = note.title,
-                            style = MaterialTheme.typography.titleMedium,
+                            style = MaterialTheme.typography.titleLarge,
                             color = MaterialTheme.colorScheme.onSurface,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
@@ -134,12 +137,14 @@ fun NoteItem(
                         )
                     }
                 }
-                Divider(
-                    modifier = Modifier
-                        .width(6.dp)
-                        .weight(0.1f), color = MaterialTheme.colorScheme.primary
-                )
             }
         }
     }
+}
+
+@Composable
+fun getFormattedTime(timestamp: Long): String {
+    val sdf = SimpleDateFormat("yyyy-MM-dd \n HH:mm", Locale.getDefault())
+    val date = Date(timestamp)
+    return sdf.format(date)
 }
